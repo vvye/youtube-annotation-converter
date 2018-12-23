@@ -30,7 +30,8 @@
 
 			if ($_POST['concurrent-annotations'] === 'merge')
 			{
-				$annotations = mergeConcurrentAnnotations($annotations);
+				$separator = trim($_POST['separator']) !== '' ? "\n" . trim($_POST['separator']) . "\n" : "\n";
+				$annotations = mergeConcurrentAnnotations($annotations, $separator);
 			}
 
 			$subtitles = [];
@@ -140,10 +141,8 @@
 	}
 
 
-	function mergeConcurrentAnnotations($annotations)
+	function mergeConcurrentAnnotations($annotations, $separator)
 	{
-		$separator = "\n---\n";
-
 		$annotationsByTimespan = [];
 		foreach ($annotations as $annotation)
 		{
