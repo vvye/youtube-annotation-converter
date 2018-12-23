@@ -38,7 +38,17 @@
 						break;
 					}
 
-					print_r($annotations);
+					$subtitles = [];
+					$i = 1;
+					foreach ($annotations as $annotation)
+					{
+						$subtitle = $i++ . "\r\n" . $annotation['startTime'] . ' --> ' . $annotation['endTime']
+							. "\r\n" . $annotation['text'];
+						$subtitles[] = $subtitle;
+					}
+					$srtOutput = join("\r\n\r\n", $subtitles);
+
+					echo $srtOutput;
 
 				} while (false);
 			}
@@ -123,7 +133,7 @@
 			function formatText($text)
 			{
 				$text = trim($text);
-				$text = preg_replace('/\n\s+/', '\n', $text);
+				$text = preg_replace('/\n\s+/', "\n", $text);
 				return $text;
 			}
 
