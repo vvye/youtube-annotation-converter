@@ -169,7 +169,11 @@
 	</head>
 	<body>
 
-		<h1>Youtube annotation converter</h1>
+		<div class="header">
+			<h1>Youtube annotation converter</h1>
+			<p>converts annotations to subtitles (.srt)</p>
+			<p><a href="https://www.eric-kaiser.net">eric-kaiser.net</a></p>
+		</div>
 
 		<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
 			<p class="prompt">Video ID or URL:</p>
