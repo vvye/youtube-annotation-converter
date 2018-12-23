@@ -11,9 +11,42 @@
 
 		<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
 			<label>
-				Video ID or URL:
+				<p class="prompt">Video ID or URL:</p>
 				<input type="text" name="video_url" placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" />
 			</label>
+			<div class="options">
+				<p class="prompt">When annotations start and end at the same time:</p>
+				<label class="custom-radio">
+					<input type="radio" name="concurrent-annotations" id="merge" checked="checked">
+					<span class="radio-label">
+						Merge into one caption (separated by: <input type="text" id="separator" value="---" />)
+					</span>
+				</label>
+				<br />
+				<label class="custom-radio">
+					<input type="radio" name="concurrent-annotations" id="keep">
+					<span class="radio-label">Keep separate (only one will show up in the video!)</span>
+				</label>
+			</div>
+			<div class="options">
+				<p class="prompt">When an annotation contains a link:</p>
+				<label class="custom-radio">
+					<input type="radio" name="link-annotations" id="add-url" checked="checked">
+					<span class="radio-label">Add the URL to the end</span>
+				</label>
+				<br />
+				<label class="custom-radio">
+					<input type="radio" name="link-annotations" id="keep-text">
+					<span class="radio-label">Keep only the text</span>
+				</label>
+				<br />
+				<label class="custom-radio">
+					<input type="radio" name="link-annotations" id="discard">
+					<span class="radio-label">
+						Discard the annotation
+					</span>
+				</label>
+			</div>
 			<button type="submit" class="primary" name="submit">Convert</button>
 		</form>
 

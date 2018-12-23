@@ -20,11 +20,21 @@ input[type="text"] {
 	font-size: 1rem;
 }
 
+.prompt {
+	font-weight: bold;
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
+}
+
+.prompt + input[type="text"] {
+	margin-left: 1rem;
+}
+
 button {
 	border: 1px solid #888;
 	border-radius: 2px;
 	background-color: #888;
-	padding: 0.5rem 1.5rem;
+	padding: 0.75rem 1.5rem;
 	color: white;
 	font-family: inherit;
 	font-size: 1rem;
@@ -37,6 +47,7 @@ button:hover {
 }
 
 button.primary {
+	margin-top: 1rem;
 	background-color: #04f;
 	border-color: #04f;
 }
@@ -44,4 +55,67 @@ button.primary {
 button.primary:hover {
 	background-color: #26f;
 	border-color: #26f;
+}
+
+.options {
+	margin-top: 1rem;
+}
+
+.options input[type="text"] {
+	width: 3rem;
+	margin: 0 0.5rem;
+	padding: 0.25rem 0.5rem;
+}
+
+.custom-radio {
+	display: inline-block;
+	cursor: pointer;
+	margin: 0 0 0.5rem 1rem;
+}
+
+.custom-radio input[type="radio"] {
+	display: none;
+}
+
+.custom-radio .radio-label {
+	display: flex;
+	align-items: center;
+	padding-left: 2rem;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.custom-radio .radio-label::before {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	width: 1.2rem;
+	height: 1.2rem;
+	margin: -0.05rem 0 0 -2rem;
+	border: 1px solid #26f;
+	border-radius: 50%;
+	background-color: white;
+	color: white;
+	line-height: 1.4rem;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: 700;
+}
+
+.custom-radio input[type="radio"]:checked + .radio-label::before, .custom-radio input[type="radio"]:checked + .radio-label:hover::before {
+	border: .4rem solid #26f;
+	height: 0.61rem;
+	width: 0.625rem;
+}
+
+.custom-radio:first-of-type {
+	margin-top: 0.5rem;
+}
+
+.custom-radio:last-of-type {
+	margin-bottom: 1rem;
 }
