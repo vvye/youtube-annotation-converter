@@ -23,28 +23,21 @@
 				do
 				{
 					$videoUrl = trim($_POST['video_url']);
-					$videoId = getVideoIdFromUrl($videoUrl);
+					$videoId = videoIdFromUrl($videoUrl);
 					if ($videoId === null)
 					{
 						echo 'failed';
 						break;
 					}
 
-					$annotationDataUrl = 'https://www.youtube.com/annotations_invideo?video_id=' . urlencode($videoId);
+					$annotationXml = annotationXmlFromVideoId($videoId);
 
-					$ch = curl_init();
-					curl_setopt_array($ch, [
-						CURLOPT_RETURNTRANSFER => 1,
-						CURLOPT_URL            => $annotationDataUrl,
-					]);
-					$response = curl_exec($ch);
-					curl_close($ch);
 
 				} while (false);
 			}
 
 
-			function getVideoIdFromUrl($url)
+			function videoIdFromUrl($url)
 			{
 				if (preg_match('/^[a-zA-Z0-9-_]{11}$/', $url))
 				{
@@ -54,6 +47,21 @@
 				// https://stackoverflow.com/a/3393008/3972493
 				parse_str(parse_url($url, PHP_URL_QUERY), $vars);
 				return $vars['v'] ?? null;
+			}
+
+			function annotationXmlFromVideoId($videoId)
+			{
+				$annotationDataUrl = 'https://www.youtube.com/annotations_invideo?video_id=' . urlencode($videoId);
+
+				$ch = curl_init();
+				curl_setopt_array($ch, [
+					CURLOPT_RETURNTRANSFER => 1,
+					CURLOPT_URL            => $annotationDataUrl,
+				]);
+				$rawXml = curl_exec($ch);
+				curl_close($ch);
+
+				return $rawXml;
 			}
 
 		?>
