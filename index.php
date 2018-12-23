@@ -185,7 +185,7 @@
 				       placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" value="<?= $videoUrl ?>" />
 			</label>
 			<div class="options">
-				<p class="prompt">When annotations start and end around the same time:</p>
+				<p class="prompt">When annotations have the same start and end time:</p>
 				<label class="custom-radio">
 					<input type="radio" name="concurrent-annotations" value="merge" checked="checked">
 					<span class="radio-label">
