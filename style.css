@@ -119,3 +119,25 @@ button.primary:hover {
 .custom-radio:last-of-type {
 	margin-bottom: 1rem;
 }
+
+hr {
+	margin: 1.5rem 0;
+	border: none;
+	border-top: 1px solid gray;
+}
+
+.output {
+	animation: outline-fade 2s;
+	width: 50%;
+	height: 12rem;
+	padding: 0.5rem;
+}
+
+@keyframes outline-fade {
+	0%, 50% {
+		box-shadow: 0 0 0.5rem #0b4;
+	}
+	100% {
+		box-shadow: none;
+	}
+}

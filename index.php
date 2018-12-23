@@ -213,10 +213,11 @@
 		</form>
 
 		<?php if ($submitted): ?>
+			<hr />
 			<?php if ($error): ?>
 				<div>failed</div>
 			<?php else: ?>
-				<textarea><?= $srtOutput ?></textarea>
+				<label><textarea class="output"><?= $srtOutput ?></textarea></label>
 			<?php endif ?>
 		<?php endif ?>
 
