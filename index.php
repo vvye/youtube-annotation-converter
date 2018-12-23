@@ -50,7 +50,9 @@
 					}
 					$srtOutput = join("\r\n\r\n", $subtitles);
 
-					echo $srtOutput;
+					?>
+					<textarea><?= $srtOutput ?></textarea>
+					<?php
 
 				} while (false);
 			}
