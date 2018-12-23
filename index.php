@@ -107,6 +107,15 @@
 					];
 				}
 
+				usort($annotations, function ($a, $b) {
+					$comp = $a['startTime'] <=> $b['startTime'];
+					if ($comp === 0)
+					{
+						$comp = $a['yPos'] <=> $b['yPos'];
+					}
+					return $comp;
+				});
+
 				return $annotations;
 			}
 
