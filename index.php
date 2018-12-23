@@ -28,7 +28,10 @@
 				break;
 			}
 
-			$annotations = mergeConcurrentAnnotations($annotations);
+			if ($_POST['concurrent-annotations'] === 'merge')
+			{
+				$annotations = mergeConcurrentAnnotations($annotations);
+			}
 
 			$subtitles = [];
 			$i = 1;
@@ -184,31 +187,31 @@
 			<div class="options">
 				<p class="prompt">When annotations start and end around the same time:</p>
 				<label class="custom-radio">
-					<input type="radio" name="concurrent-annotations" id="merge" checked="checked">
+					<input type="radio" name="concurrent-annotations" value="merge" checked="checked">
 					<span class="radio-label">
-						Merge into one caption (separated by: <input type="text" id="separator" value="---" />)
+						Merge into one caption (separated by: <input type="text" name="separator" value="---" />)
 					</span>
 				</label>
 				<br />
 				<label class="custom-radio">
-					<input type="radio" name="concurrent-annotations" id="keep">
+					<input type="radio" name="concurrent-annotations" value="keep">
 					<span class="radio-label">Keep separate (only one will show up in the video!)</span>
 				</label>
 			</div>
 			<div class="options">
 				<p class="prompt">When an annotation contains a link:</p>
 				<label class="custom-radio">
-					<input type="radio" name="link-annotations" id="add-url" checked="checked">
+					<input type="radio" name="link-annotations" value="add-url" checked="checked">
 					<span class="radio-label">Add the URL to the end</span>
 				</label>
 				<br />
 				<label class="custom-radio">
-					<input type="radio" name="link-annotations" id="keep-text">
+					<input type="radio" name="link-annotations" value="keep-text">
 					<span class="radio-label">Keep only the text</span>
 				</label>
 				<br />
 				<label class="custom-radio">
-					<input type="radio" name="link-annotations" id="discard">
+					<input type="radio" name="link-annotations" value="discard">
 					<span class="radio-label">
 						Discard the annotation
 					</span>
