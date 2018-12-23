@@ -1,0 +1,47 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	padding: 2rem;
+	font-family: sans-serif;
+}
+
+h1 {
+	margin-bottom: 2rem;
+}
+
+input[type="text"] {
+	width: 26rem;
+	padding: 0.5rem;
+	font-family: inherit;
+	font-size: 1rem;
+}
+
+button {
+	border: 1px solid #888;
+	border-radius: 2px;
+	background-color: #888;
+	padding: 0.5rem 1.5rem;
+	color: white;
+	font-family: inherit;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #aaa;
+	border-color: #aaa;
+}
+
+button.primary {
+	background-color: #04f;
+	border-color: #04f;
+}
+
+button.primary:hover {
+	background-color: #26f;
+	border-color: #26f;
+}

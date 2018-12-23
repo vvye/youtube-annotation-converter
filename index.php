@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Youtube annotation converter</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 	<body>
 
@@ -13,7 +14,7 @@
 				Video ID or URL:
 				<input type="text" name="video_url" placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" />
 			</label>
-			<button type="submit" name="submit">Convert</button>
+			<button type="submit" class="primary" name="submit">Convert</button>
 		</form>
 
 		<?php
