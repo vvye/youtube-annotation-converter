@@ -21,7 +21,9 @@
 			}
 
 			$annotationXml = annotationXmlFromVideoId($videoId);
-			$annotations = annotationsFromXml($annotationXml);
+
+			$linkAnnotationBehavior = $_POST['link-annotations'];
+			$annotations = annotationsFromXml($annotationXml, $linkAnnotationBehavior);
 			if ($annotations === null)
 			{
 				$error = true;
@@ -77,7 +79,7 @@
 	}
 
 
-	function annotationsFromXml($xml)
+	function annotationsFromXml($xml, $linkAnnotationBehavior = 'keep-text')
 	{
 		$annotations = [];
 
@@ -101,6 +103,23 @@
 			if ($startTime > $endTime)
 			{
 				list($startTime, $endTime) = [$endTime, $startTime];
+			}
+
+			$logData = $xpath->query('./@log_data', $element)[0]->nodeValue;
+			$logDataArray = [];
+			parse_str($logData, $logDataArray);
+			$hasLink = isset($logDataArray['link']);
+			if ($hasLink)
+			{
+				$linkUrl = $logDataArray['link'];
+				if ($linkAnnotationBehavior === 'add-url')
+				{
+					$text .= ': ' . $linkUrl;
+				}
+				else if ($linkAnnotationBehavior === 'discard')
+				{
+					continue;
+				}
 			}
 
 			$annotations[] = [
