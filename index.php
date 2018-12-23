@@ -12,7 +12,7 @@
 		$submitted = true;
 		do
 		{
-			$videoUrl = htmlspecialchars(strip_tags(trim($_POST['video_url'])));
+			$videoUrl = trim(htmlspecialchars(strip_tags($_POST['video_url'])));
 			$videoId = videoIdFromUrl($videoUrl);
 			if ($videoId === null)
 			{
@@ -144,7 +144,8 @@
 		$annotationsByTimespan = [];
 		foreach ($annotations as $annotation)
 		{
-			$key = $annotation['startTime'] . '-' . $annotation['endTime'];
+			// discard fractional parts of start and end time
+			$key = substr($annotation['startTime'], 0, -4) . '-' . substr($annotation['endTime'], 0, -4);
 			if (!isset($annotationsByTimespan[$key]))
 			{
 				$annotationsByTimespan[$key] = $annotation;
@@ -171,13 +172,13 @@
 		<h1>Youtube annotation converter</h1>
 
 		<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
+			<p class="prompt">Video ID or URL:</p>
 			<label>
-				<p class="prompt">Video ID or URL:</p>
 				<input type="text" name="video_url" placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0"
-				       value="<?= $videoUrl ?> " />
+				       value="<?= $videoUrl ?>" />
 			</label>
 			<div class="options">
-				<p class="prompt">When annotations start and end at the same time:</p>
+				<p class="prompt">When annotations start and end around the same time:</p>
 				<label class="custom-radio">
 					<input type="radio" name="concurrent-annotations" id="merge" checked="checked">
 					<span class="radio-label">
@@ -214,11 +215,16 @@
 
 		<?php if ($submitted): ?>
 			<hr />
-			<?php if ($error): ?>
-				<div>failed</div>
-			<?php else: ?>
-				<label><textarea class="output"><?= $srtOutput ?></textarea></label>
-			<?php endif ?>
+		<?php if ($error): ?>
+			<div>failed</div>
+		<?php else: ?>
+			<label>
+				<textarea class="output" id="srt-output"><?= $srtOutput ?></textarea>
+			</label>
+		<br />
+			<button id="download-button" data-video-id="<?= $videoId ?>">Download .srt file</button>
+			<script type="text/javascript" src="srt-download.js"></script>
+		<?php endif ?>
 		<?php endif ?>
 
 	</body>

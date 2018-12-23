@@ -1,0 +1,23 @@
+let outputTextarea = document.getElementById('srt-output');
+let downloadButton = document.getElementById('download-button');
+
+downloadButton.onclick = function () {
+    let srtOutput = outputTextarea.value;
+    let videoId = this.getAttribute('data-video-id');
+    offerDownload(srtOutput, videoId + '_annotations.srt');
+};
+
+function offerDownload(data, filename) {
+    // https://stackoverflow.com/a/33542499/3972493
+    let blob = new Blob([data], {type: 'text/srt'});
+    if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    } else {
+        let elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;
+        document.body.appendChild(elem);
+        elem.click();
+        document.body.removeChild(elem);
+    }
+}
