@@ -1,6 +1,21 @@
+for (let elem of document.querySelectorAll('.no-js')) {
+    elem.style.display = 'none';
+}
+
+let videoUrlInput = document.getElementById('video-url-input');
+let convertButton = document.getElementById('convert-button');
 let outputTextarea = document.getElementById('srt-output');
 let downloadButton = document.getElementById('download-button');
 
+(videoUrlInput.onchange = videoUrlInput.onkeypress = videoUrlInput.onpaste = videoUrlInput.oninput = function () {
+    if (!videoUrlInput.value.trim()) {
+        convertButton.setAttribute('disabled', 'disabled');
+    } else {
+        convertButton.removeAttribute('disabled');
+    }
+})();
+
+downloadButton.removeAttribute('disabled');
 downloadButton.onclick = function () {
     let srtOutput = outputTextarea.value;
     let videoId = this.getAttribute('data-video-id');

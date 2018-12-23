@@ -174,8 +174,8 @@
 		<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
 			<p class="prompt">Video ID or URL:</p>
 			<label>
-				<input type="text" name="video_url" placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0"
-				       value="<?= $videoUrl ?>" />
+				<input type="text" name="video_url" id="video-url-input"
+				       placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" value="<?= $videoUrl ?>" />
 			</label>
 			<div class="options">
 				<p class="prompt">When annotations start and end around the same time:</p>
@@ -210,22 +210,26 @@
 					</span>
 				</label>
 			</div>
-			<button type="submit" class="primary" name="submit">Convert</button>
+			<button type="submit" class="primary" name="submit" id="convert-button">Convert</button>
 		</form>
 
 		<?php if ($submitted): ?>
 			<hr />
-		<?php if ($error): ?>
-			<div>failed</div>
-		<?php else: ?>
-			<label>
-				<textarea class="output" id="srt-output"><?= $srtOutput ?></textarea>
-			</label>
-		<br />
-			<button id="download-button" data-video-id="<?= $videoId ?>">Download .srt file</button>
-			<script type="text/javascript" src="srt-download.js"></script>
+			<?php if ($error): ?>
+				<div>failed</div>
+			<?php else: ?>
+				<label>
+					<textarea class="output" id="srt-output"><?= $srtOutput ?></textarea>
+				</label>
+				<br />
+				<button id="download-button" data-video-id="<?= $videoId ?>" disabled="disabled">
+					Download .srt file
+				</button>
+				<div class="no-js info">Enable JavaScript to download the file.</div>
+			<?php endif ?>
 		<?php endif ?>
-		<?php endif ?>
+
+		<script type="text/javascript" src="misc.js"></script>
 
 	</body>
 </html>

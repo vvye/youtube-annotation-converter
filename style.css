@@ -31,7 +31,7 @@ input[type="text"] {
 }
 
 button {
-	border: 1px solid #888;
+	border: none;
 	border-radius: 2px;
 	background-color: #888;
 	padding: 0.75rem 1.5rem;
@@ -43,18 +43,22 @@ button {
 
 button:hover {
 	background-color: #aaa;
-	border-color: #aaa;
 }
 
 button.primary {
 	margin-top: 1rem;
 	background-color: #04f;
-	border-color: #04f;
 }
 
 button.primary:hover {
 	background-color: #26f;
-	border-color: #26f;
+}
+
+button:disabled,
+button:disabled:hover {
+	background-color: #ddd;
+	color: #888;
+	cursor: not-allowed;
 }
 
 .options {
@@ -132,6 +136,14 @@ hr {
 	height: 12rem;
 	margin-bottom: 1rem;
 	padding: 0.5rem;
+}
+
+.info {
+	border: 1px solid #26f;
+	border-radius: 2px;
+	margin: 1rem 0;
+	padding: 0.5rem 1rem;
+	display: inline-block;
 }
 
 @keyframes outline-fade {
