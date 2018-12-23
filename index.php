@@ -29,7 +29,16 @@
 						echo 'failed';
 						break;
 					}
-					echo $videoId;
+
+					$annotationDataUrl = 'https://www.youtube.com/annotations_invideo?video_id=' . urlencode($videoId);
+
+					$ch = curl_init();
+					curl_setopt_array($ch, [
+						CURLOPT_RETURNTRANSFER => 1,
+						CURLOPT_URL            => $annotationDataUrl,
+					]);
+					$response = curl_exec($ch);
+					curl_close($ch);
 
 				} while (false);
 			}
