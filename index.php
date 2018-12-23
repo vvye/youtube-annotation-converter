@@ -38,6 +38,8 @@
 						break;
 					}
 
+					$annotations = mergeConcurrentAnnotations($annotations);
+
 					$subtitles = [];
 					$i = 1;
 					foreach ($annotations as $annotation)
@@ -144,6 +146,27 @@
 				list($seconds, $fraction) = explode('.', $seconds);
 				return str_pad($hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT)
 					. ':' . str_pad($seconds, 2, '0', STR_PAD_LEFT) . ',' . str_pad($fraction, 3, '0');
+			}
+
+
+			function mergeConcurrentAnnotations($annotations)
+			{
+				$separator = "\n---\n";
+
+				$annotationsByTimespan = [];
+				foreach ($annotations as $annotation)
+				{
+					$key = $annotation['startTime'] . '-' . $annotation['endTime'];
+					if (!isset($annotationsByTimespan[$key]))
+					{
+						$annotationsByTimespan[$key] = $annotation;
+					}
+					else
+					{
+						$annotationsByTimespan[$key]['text'] .= $separator . $annotation['text'];
+					}
+				}
+				return array_values($annotationsByTimespan);
 			}
 
 		?>
