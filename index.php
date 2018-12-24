@@ -195,8 +195,8 @@
 
 			$splitAnnotations[] = [
 				'text'      => $text,
-				'startTime' => formatTime($currentTime),
-				'endTime'   => formatTime($nextTime)
+				'startTime' => $currentTime,
+				'endTime'   => $nextTime
 			];
 		}
 
