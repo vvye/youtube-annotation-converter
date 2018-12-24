@@ -30,10 +30,10 @@
 				break;
 			}
 
-			if ($_POST['concurrent-annotations'] === 'merge')
+			if ($_POST['overlapping-annotations'] === 'merge')
 			{
 				$separator = trim($_POST['separator']) !== '' ? "\n" . trim($_POST['separator']) . "\n" : "\n";
-				$annotations = mergeConcurrentAnnotations($annotations, $separator);
+				$annotations = mergeOverlappingAnnotations($annotations, $separator);
 			}
 
 			$subtitles = [];
@@ -153,44 +153,69 @@
 
 	function formatTime($time)
 	{
-		list($hours, $minutes, $seconds, $fraction) = rawTime($time);
+		list($hours, $minutes, $seconds, $fraction) = rawTime($time, '.');
 		return str_pad($hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT)
 			. ':' . str_pad($seconds, 2, '0', STR_PAD_LEFT) . ',' . str_pad($fraction, 3, '0');
 	}
 
 
-	function rawTime($time)
+	function rawTime($time, $fractionSeparator)
 	{
 		list($hours, $minutes, $seconds) = explode(':', $time);
-		list($seconds, $fraction) = explode('.', $seconds);
+		list($seconds, $fraction) = explode($fractionSeparator, $seconds);
 		return [$hours, $minutes, $seconds, $fraction];
 	}
 
 
-	function mergeConcurrentAnnotations($annotations, $separator)
+	function mergeOverlappingAnnotations($annotations, $separator)
 	{
-		$annotationsByTimespan = [];
+		$times = [];
 		foreach ($annotations as $annotation)
 		{
-			// discard fractional parts of start and end time
-			$key = substr($annotation['startTime'], 0, -4) . '-' . substr($annotation['endTime'], 0, -4);
-			if (!isset($annotationsByTimespan[$key]))
-			{
-				$annotationsByTimespan[$key] = $annotation;
-			}
-			else
-			{
-				$annotationsByTimespan[$key]['text'] .= $separator . $annotation['text'];
-			}
+			$times[] = $annotation['startTime'];
+			$times[] = $annotation['endTime'];
 		}
-		return array_values($annotationsByTimespan);
+		$times = array_unique($times);
+		usort($times, 'compareTime');
+
+		$splitAnnotations = [];
+		for ($i = 0; $i < count($times) - 1; $i++)
+		{
+			$currentTime = $times[$i];
+			$nextTime = $times[$i + 1];
+			$annotationsDuringThisTime = annotationsByTimespan($annotations, $currentTime, $nextTime);
+			if (empty($annotationsDuringThisTime))
+			{
+				continue;
+			}
+
+			$text = join($separator, array_map(function ($a) {
+				return $a['text'];
+			}, $annotationsDuringThisTime));
+
+			$splitAnnotations[] = [
+				'text'      => $text,
+				'startTime' => formatTime($currentTime),
+				'endTime'   => formatTime($nextTime)
+			];
+		}
+
+		return $splitAnnotations;
+	}
+
+
+	function annotationsByTimespan($annotations, $startTime, $endTime)
+	{
+		return array_filter($annotations, function ($a) use ($startTime, $endTime) {
+			return (compareTime($a['startTime'], $startTime) !== 1) && (compareTime($a['endTime'], $endTime) !== -1);
+		});
 	}
 
 
 	function compareTime($time1, $time2)
 	{
-		list($hours1, $minutes1, $seconds1, $fraction1) = rawTime($time1);
-		list($hours2, $minutes2, $seconds2, $fraction2) = rawTime($time2);
+		list($hours1, $minutes1, $seconds1, $fraction1) = rawTime($time1, ',');
+		list($hours2, $minutes2, $seconds2, $fraction2) = rawTime($time2, ',');
 
 		if (($hours1 <=> $hours2) !== 0)
 		{
@@ -231,16 +256,16 @@
 				       placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" value="<?= $videoUrl ?>" />
 			</label>
 			<div class="options">
-				<p class="prompt">When annotations have the same start and end time:</p>
+				<p class="prompt">When annotations overlap:</p>
 				<label class="custom-radio">
-					<input type="radio" name="concurrent-annotations" value="merge" checked="checked">
+					<input type="radio" name="overlapping-annotations" value="merge" checked="checked">
 					<span class="radio-label">
-						Merge into one caption (separated by: <input type="text" name="separator" value="---" />)
+						Merge into one subtitle (separated by: <input type="text" name="separator" value="---" />)
 					</span>
 				</label>
 				<br />
 				<label class="custom-radio">
-					<input type="radio" name="concurrent-annotations" value="keep">
+					<input type="radio" name="overlapping-annotations" value="keep">
 					<span class="radio-label">Keep separate (only one will show up in the video!)</span>
 				</label>
 			</div>
