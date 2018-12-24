@@ -131,7 +131,7 @@
 		}
 
 		usort($annotations, function ($a, $b) {
-			$comp = $a['startTime'] <=> $b['startTime'];
+			$comp = compareTime($a['startTime'], $b['startTime']);
 			if ($comp === 0)
 			{
 				$comp = $a['yPos'] <=> $b['yPos'];
@@ -153,10 +153,17 @@
 
 	function formatTime($time)
 	{
-		list($hours, $minutes, $seconds) = explode(':', $time);
-		list($seconds, $fraction) = explode('.', $seconds);
+		list($hours, $minutes, $seconds, $fraction) = rawTime($time);
 		return str_pad($hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT)
 			. ':' . str_pad($seconds, 2, '0', STR_PAD_LEFT) . ',' . str_pad($fraction, 3, '0');
+	}
+
+
+	function rawTime($time)
+	{
+		list($hours, $minutes, $seconds) = explode(':', $time);
+		list($seconds, $fraction) = explode('.', $seconds);
+		return [$hours, $minutes, $seconds, $fraction];
 	}
 
 
@@ -177,6 +184,27 @@
 			}
 		}
 		return array_values($annotationsByTimespan);
+	}
+
+
+	function compareTime($time1, $time2)
+	{
+		list($hours1, $minutes1, $seconds1, $fraction1) = rawTime($time1);
+		list($hours2, $minutes2, $seconds2, $fraction2) = rawTime($time2);
+
+		if (($hours1 <=> $hours2) !== 0)
+		{
+			return $hours1 <=> $hours2;
+		}
+		if (($minutes1 <=> $minutes2) !== 0)
+		{
+			return $minutes1 <=> $minutes2;
+		}
+		if (($seconds1 <=> $seconds2) !== 0)
+		{
+			return $seconds1 <=> $seconds2;
+		}
+		return $fraction1 <=> $fraction2;
 	}
 
 ?>
