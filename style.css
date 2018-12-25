@@ -135,11 +135,14 @@ hr {
 }
 
 .output {
-	animation: outline-fade 2s;
 	width: 50%;
 	height: 12rem;
 	margin-bottom: 1rem;
 	padding: 0.5rem;
+}
+
+.newly-added {
+	animation: outline-fade 2s;
 }
 
 .info {

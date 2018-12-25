@@ -297,10 +297,11 @@
 				<div>failed</div>
 			<?php else: ?>
 				<label>
-					<textarea class="output" id="srt-output"><?= $srtOutput ?></textarea>
+					<textarea class="newly-added output" id="srt-output"><?= $srtOutput ?></textarea>
 				</label>
 				<br />
-				<button id="download-button" class="show-if-js" data-video-id="<?= $videoId ?>" disabled="disabled">
+				<button id="download-button" class="newly-added show-if-js" data-video-id="<?= $videoId ?>"
+				        disabled="disabled">
 					Download .srt file
 				</button>
 				<div class="hide-if-js info">Enable JavaScript to download the file.</div>
