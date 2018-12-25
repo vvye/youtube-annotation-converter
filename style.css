@@ -42,6 +42,7 @@ li {
 }
 
 .output {
+	margin-right: 1rem;
 	grid-row: 2 / 3;
 	grid-column: 1 / 2;
 }
@@ -207,4 +208,25 @@ hr {
 	100% {
 		box-shadow: none;
 	}
+}
+
+@media screen and (max-width: 72rem) {
+	body {
+		display: block;
+		padding: 1rem;
+	}
+
+	h2:first-child {
+		margin-top: 3rem;
+	}
+
+	#video-url-input {
+		margin: 0;
+		max-width: 100%;
+	}
+
+	.output {
+		margin-right: 0;
+	}
+
 }
