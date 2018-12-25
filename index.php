@@ -122,10 +122,15 @@
 
 		foreach ($elements as $element)
 		{
-			$text = $xpath->query('./TEXT/text()', $element)[0]->nodeValue;
-			$startTime = $xpath->query('./segment/movingRegion/rectRegion[1]/@t', $element)[0]->nodeValue;
-			$endTime = $xpath->query('./segment/movingRegion/rectRegion[2]/@t', $element)[0]->nodeValue;
-			$yPos = $xpath->query('./segment/movingRegion/rectRegion[1]/@y', $element)[0]->nodeValue;
+			$text = $xpath->query('./TEXT/text()', $element)[0]->nodeValue ?? null;
+			$startTime = $xpath->query('./segment/movingRegion/rectRegion[1]/@t', $element)[0]->nodeValue ?? null;
+			$endTime = $xpath->query('./segment/movingRegion/rectRegion[2]/@t', $element)[0]->nodeValue ?? null;
+			$yPos = $xpath->query('./segment/movingRegion/rectRegion[1]/@y', $element)[0]->nodeValue ?? null;
+
+			if ($text === null || $startTime === null || $endTime === null || $yPos === null)
+			{
+				continue;
+			}
 
 			if ($startTime > $endTime)
 			{
