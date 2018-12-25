@@ -276,7 +276,7 @@
 				<h1>YouTube annotation converter</h1>
 				<p>Save annotations by converting them to subtitles (.srt)</p>
 				<p><a href="https://www.eric-kaiser.net">www.eric-kaiser.net</a> &bull;
-				<a href="https://github.com/vvye/youtube-annotation-converter">This tool on GitHub</a></p>
+					<a href="https://github.com/vvye/youtube-annotation-converter">This tool on GitHub</a></p>
 			</div>
 
 			<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
@@ -349,11 +349,12 @@
 
 		<div class="intro">
 			<h2>What's this about?</h2>
-			<p>On January 15, 2019, YouTube is getting rid of annotations.</p>
-			<p>Annotations are boxes of text and/or links that could be placed anywhere on screen. Since May 2017 you
-				can no longer add new annotations, and on January 15, 2019, even existing annotations will disappear.
-				This is really unfortunate for older videos that made heavy use of them, providing commentary,
-				background info, or corrections.</p>
+			<p><a href="https://support.google.com/youtube/answer/7342737">On January 15, 2019, YouTube is getting rid
+					of annotations.</a></p>
+			<p>Annotations are boxes of text and/or links that could be placed anywhere inside a video. Since May 2017
+				you can no longer add new annotations, and on January 15, 2019, even existing annotations will
+				disappear. This is really unfortunate for older videos that make heavy use of them, providing
+				commentary, background info, or corrections.</p>
 			<h2>What does this tool do?</h2>
 			<p>If you want to preserve your videos' annotations, you can use this tool to convert them into subtitles
 				instead.</p>
