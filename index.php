@@ -6,13 +6,19 @@
 	{
 		$submitted = false;
 		$videoUrl = '';
+		$overlappingAnnotationBehavior = 'merge';
+		$linkAnnotationBehavior = 'add-url';
 	}
 	else
 	{
 		$submitted = true;
+		// better safe than sorry
+		$overlappingAnnotationBehavior = trim(htmlspecialchars(strip_tags($_POST['overlapping-annotations'])));
+		$linkAnnotationBehavior = trim(htmlspecialchars(strip_tags($_POST['link-annotations'])));
+		$videoUrl = trim(htmlspecialchars(strip_tags($_POST['video_url'])));
+
 		do
 		{
-			$videoUrl = trim(htmlspecialchars(strip_tags($_POST['video_url'])));
 			if ($videoUrl === '')
 			{
 				$errorMessage = 'Enter a video ID or URL.';
@@ -33,7 +39,6 @@
 				break;
 			}
 
-			$linkAnnotationBehavior = $_POST['link-annotations'];
 			$annotations = annotationsFromXml($annotationXml, $linkAnnotationBehavior);
 			if ($annotations === null)
 			{
@@ -46,7 +51,7 @@
 				break;
 			}
 
-			if ($_POST['overlapping-annotations'] === 'merge')
+			if ($overlappingAnnotationBehavior === 'merge')
 			{
 				$separator = trim($_POST['separator']) !== '' ? "\n" . trim($_POST['separator']) . "\n" : "\n";
 				$annotations = mergeOverlappingAnnotations($annotations, $separator);
@@ -101,7 +106,7 @@
 	}
 
 
-	function annotationsFromXml($xml, $linkAnnotationBehavior = 'keep-text')
+	function annotationsFromXml($xml, $linkAnnotationBehavior)
 	{
 		$annotations = [];
 
@@ -280,31 +285,36 @@
 			<div class="options">
 				<p class="prompt">When annotations overlap:</p>
 				<label class="custom-radio">
-					<input type="radio" name="overlapping-annotations" value="merge" checked="checked">
+					<input type="radio" name="overlapping-annotations" value="merge"
+						<?= $overlappingAnnotationBehavior === 'merge' ? 'checked="checked"' : '' ?>>
 					<span class="radio-label">
 						Merge into one subtitle (separated by: <input type="text" name="separator" value="---" />)
 					</span>
 				</label>
 				<br />
 				<label class="custom-radio">
-					<input type="radio" name="overlapping-annotations" value="keep">
+					<input type="radio" name="overlapping-annotations" value="keep"
+						<?= $overlappingAnnotationBehavior === 'keep' ? 'checked="checked"' : '' ?>>
 					<span class="radio-label">Keep separate (only one will show up in the video!)</span>
 				</label>
 			</div>
 			<div class="options">
 				<p class="prompt">When an annotation contains a link:</p>
 				<label class="custom-radio">
-					<input type="radio" name="link-annotations" value="add-url" checked="checked">
+					<input type="radio" name="link-annotations" value="add-url"
+						<?= $linkAnnotationBehavior === 'add-url' ? 'checked="checked"' : '' ?>>
 					<span class="radio-label">Add the URL to the end</span>
 				</label>
 				<br />
 				<label class="custom-radio">
-					<input type="radio" name="link-annotations" value="keep-text">
+					<input type="radio" name="link-annotations" value="keep-text"
+						<?= $linkAnnotationBehavior === 'keep-text' ? 'checked="checked"' : '' ?>>
 					<span class="radio-label">Keep only the text</span>
 				</label>
 				<br />
 				<label class="custom-radio">
-					<input type="radio" name="link-annotations" value="discard">
+					<input type="radio" name="link-annotations" value="discard"
+						<?= $linkAnnotationBehavior === 'discard' ? 'checked="checked"' : '' ?>>
 					<span class="radio-label">
 						Discard the annotation
 					</span>
