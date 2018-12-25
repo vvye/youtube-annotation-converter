@@ -270,75 +270,85 @@
 	</head>
 	<body>
 
-		<div class="header">
-			<h1>Youtube annotation converter</h1>
-			<p>converts annotations to subtitles (.srt)</p>
-			<p><a href="https://www.eric-kaiser.net">eric-kaiser.net</a></p>
-		</div>
+		<div class="main">
 
-		<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
-			<p class="prompt">Video ID or URL:</p>
-			<label>
-				<input type="text" name="video_url" id="video-url-input"
-				       placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" value="<?= $videoUrl ?>" />
-			</label>
-			<div class="options">
-				<p class="prompt">When annotations overlap:</p>
-				<label class="custom-radio">
-					<input type="radio" name="overlapping-annotations" value="merge"
-						<?= $overlappingAnnotationBehavior === 'merge' ? 'checked="checked"' : '' ?>>
-					<span class="radio-label">
+			<div class="header">
+				<h1>Youtube annotation converter</h1>
+				<p>converts annotations to subtitles (.srt)</p>
+				<p><a href="https://www.eric-kaiser.net">eric-kaiser.net</a></p>
+			</div>
+
+			<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
+				<p class="prompt">Video ID or URL:</p>
+				<label>
+					<input type="text" name="video_url" id="video-url-input"
+					       placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" value="<?= $videoUrl ?>" />
+				</label>
+				<div class="options">
+					<p class="prompt">When annotations overlap:</p>
+					<label class="custom-radio">
+						<input type="radio" name="overlapping-annotations" value="merge"
+							<?= $overlappingAnnotationBehavior === 'merge' ? 'checked="checked"' : '' ?>>
+						<span class="radio-label">
 						Merge into one subtitle (separated by: <input type="text" name="separator" value="---" />)
 					</span>
-				</label>
-				<br />
-				<label class="custom-radio">
-					<input type="radio" name="overlapping-annotations" value="keep"
-						<?= $overlappingAnnotationBehavior === 'keep' ? 'checked="checked"' : '' ?>>
-					<span class="radio-label">Keep separate (only one will show up in the video!)</span>
-				</label>
-			</div>
-			<div class="options">
-				<p class="prompt">When an annotation contains a link:</p>
-				<label class="custom-radio">
-					<input type="radio" name="link-annotations" value="add-url"
-						<?= $linkAnnotationBehavior === 'add-url' ? 'checked="checked"' : '' ?>>
-					<span class="radio-label">Add the URL to the end</span>
-				</label>
-				<br />
-				<label class="custom-radio">
-					<input type="radio" name="link-annotations" value="keep-text"
-						<?= $linkAnnotationBehavior === 'keep-text' ? 'checked="checked"' : '' ?>>
-					<span class="radio-label">Keep only the text</span>
-				</label>
-				<br />
-				<label class="custom-radio">
-					<input type="radio" name="link-annotations" value="discard"
-						<?= $linkAnnotationBehavior === 'discard' ? 'checked="checked"' : '' ?>>
-					<span class="radio-label">
+					</label>
+					<br />
+					<label class="custom-radio">
+						<input type="radio" name="overlapping-annotations" value="keep"
+							<?= $overlappingAnnotationBehavior === 'keep' ? 'checked="checked"' : '' ?>>
+						<span class="radio-label">Keep separate (only one will show up in the video!)</span>
+					</label>
+				</div>
+				<div class="options">
+					<p class="prompt">When an annotation contains a link:</p>
+					<label class="custom-radio">
+						<input type="radio" name="link-annotations" value="add-url"
+							<?= $linkAnnotationBehavior === 'add-url' ? 'checked="checked"' : '' ?>>
+						<span class="radio-label">Add the URL to the end</span>
+					</label>
+					<br />
+					<label class="custom-radio">
+						<input type="radio" name="link-annotations" value="keep-text"
+							<?= $linkAnnotationBehavior === 'keep-text' ? 'checked="checked"' : '' ?>>
+						<span class="radio-label">Keep only the text</span>
+					</label>
+					<br />
+					<label class="custom-radio">
+						<input type="radio" name="link-annotations" value="discard"
+							<?= $linkAnnotationBehavior === 'discard' ? 'checked="checked"' : '' ?>>
+						<span class="radio-label">
 						Discard the annotation
 					</span>
-				</label>
-			</div>
-			<button type="submit" class="primary" name="submit" id="convert-button">Convert</button>
-		</form>
+					</label>
+				</div>
+				<button type="submit" class="primary" name="submit" id="convert-button">Convert</button>
+			</form>
+
+		</div>
 
 		<?php if ($submitted): ?>
-			<hr />
-			<?php if ($errorMessage !== ''): ?>
-				<div class="error msg"><?= $errorMessage ?></div>
-			<?php else: ?>
-				<label>
-					<textarea class="newly-added output" id="srt-output"><?= $srtOutput ?></textarea>
-				</label>
-				<br />
-				<button id="download-button" class="newly-added show-if-js" data-video-id="<?= $videoId ?>"
-				        disabled="disabled">
-					Download .srt file
-				</button>
-				<div class="info msg hide-if-js">Enable JavaScript to download the file.</div>
-			<?php endif ?>
+			<div class="output">
+				<hr />
+				<?php if ($errorMessage !== ''): ?>
+					<div class="error msg"><?= $errorMessage ?></div>
+				<?php else: ?>
+					<label>
+						<textarea class="newly-added srt-output" id="srt-output"><?= $srtOutput ?></textarea>
+					</label>
+					<br />
+					<button id="download-button" class="newly-added show-if-js" data-video-id="<?= $videoId ?>"
+					        disabled="disabled">
+						Download .srt file
+					</button>
+					<div class="info msg hide-if-js">Enable JavaScript to download the file.</div>
+				<?php endif ?>
+			</div>
 		<?php endif ?>
+
+		<div class="intro">
+			lorem ipsum
+		</div>
 
 		<script type="text/javascript" src="misc.js"></script>
 
