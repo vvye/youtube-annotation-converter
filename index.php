@@ -1,6 +1,6 @@
 <?php
 
-	$error = false;
+	$errorMessage = '';
 
 	if (!isset($_POST['submit']))
 	{
@@ -13,20 +13,36 @@
 		do
 		{
 			$videoUrl = trim(htmlspecialchars(strip_tags($_POST['video_url'])));
+			if ($videoUrl === '')
+			{
+				$errorMessage = 'Enter a video ID or URL.';
+				break;
+			}
+
 			$videoId = videoIdFromUrl($videoUrl);
 			if ($videoId === null)
 			{
-				$error = true;
+				$errorMessage = 'The video ID couldn\'t be found.';
 				break;
 			}
 
 			$annotationXml = annotationXmlFromVideoId($videoId);
+			if ($annotationXml === null || ($annotationXml) === '')
+			{
+				$errorMessage = 'The video couldn\'t be found.';
+				break;
+			}
 
 			$linkAnnotationBehavior = $_POST['link-annotations'];
 			$annotations = annotationsFromXml($annotationXml, $linkAnnotationBehavior);
 			if ($annotations === null)
 			{
-				$error = true;
+				$errorMessage = 'Something went wrong processing the annotations.';
+				break;
+			}
+			if (empty($annotations))
+			{
+				$errorMessage = 'No annotations were found in that video.';
 				break;
 			}
 
@@ -73,6 +89,12 @@
 			CURLOPT_URL            => $annotationDataUrl,
 		]);
 		$rawXml = curl_exec($ch);
+
+		if (curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200)
+		{
+			curl_close($ch);
+			return null;
+		}
 		curl_close($ch);
 
 		return $rawXml;
@@ -293,8 +315,8 @@
 
 		<?php if ($submitted): ?>
 			<hr />
-			<?php if ($error): ?>
-				<div>failed</div>
+			<?php if ($errorMessage !== ''): ?>
+				<div class="error msg"><?= $errorMessage ?></div>
 			<?php else: ?>
 				<label>
 					<textarea class="newly-added output" id="srt-output"><?= $srtOutput ?></textarea>
@@ -304,7 +326,7 @@
 				        disabled="disabled">
 					Download .srt file
 				</button>
-				<div class="hide-if-js info">Enable JavaScript to download the file.</div>
+				<div class="info msg hide-if-js">Enable JavaScript to download the file.</div>
 			<?php endif ?>
 		<?php endif ?>
 

@@ -145,12 +145,19 @@ hr {
 	animation: outline-fade 2s;
 }
 
-.info {
-	border: 1px solid #26f;
+.msg {
 	border-radius: 2px;
 	margin: 1rem 0;
 	padding: 0.5rem 1rem;
 	display: inline-block;
+}
+
+.info {
+	border: 1px solid #26f;
+}
+
+.error {
+	border: 1px solid #f62;
 }
 
 @keyframes outline-fade {
