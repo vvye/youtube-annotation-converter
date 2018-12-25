@@ -275,7 +275,8 @@
 			<div class="header">
 				<h1>YouTube annotation converter</h1>
 				<p>Save annotations by converting them to subtitles (.srt)</p>
-				<p><a href="https://www.eric-kaiser.net">eric-kaiser.net</a></p>
+				<p><a href="https://www.eric-kaiser.net">www.eric-kaiser.net</a> &bull;
+				<a href="https://github.com/vvye/youtube-annotation-converter">This tool on GitHub</a></p>
 			</div>
 
 			<form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
