@@ -15,12 +15,14 @@ let downloadButton = document.getElementById('download-button');
     }
 })();
 
-downloadButton.removeAttribute('disabled');
-downloadButton.onclick = function () {
-    let srtOutput = outputTextarea.value;
-    let videoId = this.getAttribute('data-video-id');
-    offerDownload(srtOutput, videoId + '_annotations.srt');
-};
+if (downloadButton) {
+    downloadButton.removeAttribute('disabled');
+    downloadButton.onclick = function () {
+        let srtOutput = outputTextarea.value;
+        let videoId = this.getAttribute('data-video-id');
+        offerDownload(srtOutput, videoId + '_annotations.srt');
+    };
+}
 
 function offerDownload(data, filename) {
     // https://stackoverflow.com/a/33542499/3972493
