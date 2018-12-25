@@ -351,7 +351,7 @@
 			<h2>What's this about?</h2>
 			<p>On January 15, 2019, YouTube is getting rid of annotations.</p>
 			<p>Annotations are boxes of text and/or links that could be placed anywhere on screen. Since May 2017 you
-				can no longer add new annotations, but on January 15, 2019, even existing annotations will disappear.
+				can no longer add new annotations, and on January 15, 2019, even existing annotations will disappear.
 				This is really unfortunate for older videos that made heavy use of them, providing commentary,
 				background info, or corrections.</p>
 			<h2>What does this tool do?</h2>
