@@ -1,4 +1,7 @@
-for (let elem of document.querySelectorAll('.no-js')) {
+for (let elem of document.querySelectorAll('.show-if-js')) {
+    elem.style.display = 'block';
+}
+for (let elem of document.querySelectorAll('.hide-if-js')) {
     elem.style.display = 'none';
 }
 

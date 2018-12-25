@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+.show-if-js {
+	display: none;
+}
+
 body {
 	padding: 2rem;
 	font-family: sans-serif;

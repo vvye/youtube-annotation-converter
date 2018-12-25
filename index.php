@@ -300,10 +300,10 @@
 					<textarea class="output" id="srt-output"><?= $srtOutput ?></textarea>
 				</label>
 				<br />
-				<button id="download-button" data-video-id="<?= $videoId ?>" disabled="disabled">
+				<button id="download-button" class="show-if-js" data-video-id="<?= $videoId ?>" disabled="disabled">
 					Download .srt file
 				</button>
-				<div class="no-js info">Enable JavaScript to download the file.</div>
+				<div class="hide-if-js info">Enable JavaScript to download the file.</div>
 			<?php endif ?>
 		<?php endif ?>
 
