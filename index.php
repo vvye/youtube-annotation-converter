@@ -8,6 +8,7 @@
 		$videoUrl = '';
 		$overlappingAnnotationBehavior = 'merge';
 		$linkAnnotationBehavior = 'add-url';
+		$separator = '---';
 	}
 	else
 	{
@@ -16,6 +17,7 @@
 		$overlappingAnnotationBehavior = trim(htmlspecialchars(strip_tags($_POST['overlapping-annotations'])));
 		$linkAnnotationBehavior = trim(htmlspecialchars(strip_tags($_POST['link-annotations'])));
 		$videoUrl = trim(htmlspecialchars(strip_tags($_POST['video_url'])));
+		$separator = trim(htmlspecialchars(strip_tags($_POST['separator'])));
 
 		do
 		{
@@ -296,7 +298,8 @@
 						<input type="radio" name="overlapping-annotations" value="merge"
 							<?= $overlappingAnnotationBehavior === 'merge' ? 'checked="checked"' : '' ?>>
 						<span class="radio-label">
-						Merge into one subtitle (separated by: <input type="text" name="separator" value="---" />)
+						Merge into one subtitle (separated by: <input type="text" name="separator"
+						                                              value="<?= $separator ?>" />)
 					</span>
 					</label>
 					<br />
