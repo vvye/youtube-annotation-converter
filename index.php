@@ -401,7 +401,7 @@
 			</ul>
 		</div>
 
-		<script type="text/javascript" src="misc.js"></script>
+		<script type="text/javascript" src="main.js"></script>
 
 	</body>
 </html>
