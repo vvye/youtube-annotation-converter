@@ -1,4 +1,6 @@
 <h1>YouTube annotation converter</h1>
+<p><a href="http://misc.eric-kaiser.net/youtube-annotation-converter">
+	http://misc.eric-kaiser.net/youtube-annotation-converter</a></p>
 <h2>What's this about?</h2>
 <p><a href="https://support.google.com/youtube/answer/7342737">On January 15, 2019, YouTube is getting rid
 		of annotations.</a></p>
