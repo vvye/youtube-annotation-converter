@@ -274,6 +274,9 @@
 		<meta charset="utf-8">
 		<title>YouTube annotation converter</title>
 		<link rel="stylesheet" type="text/css" href="style.css" />
+		<meta name="description" content="Preserve YouTube annotations by converting them to subtitles (.srt).">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	</head>
 	<body>
 
