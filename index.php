@@ -195,8 +195,19 @@
 
 	function rawTime($time, $fractionSeparator)
 	{
-		list($hours, $minutes, $seconds) = explode(':', $time);
-		list($seconds, $fraction) = explode($fractionSeparator, $seconds);
+		if ($fractionSeparator === '.')
+		{
+			$fractionSeparator = '\.';
+		}
+
+		$timeRegex = '/((?<hours>\d+):)?(?<minutes>\d+):(?<seconds>\d+)' . $fractionSeparator . '(?<fraction>\d+)/i';
+		preg_match_all($timeRegex, $time, $matches, PREG_UNMATCHED_AS_NULL);
+
+		$hours = $matches['hours'][0] ?: 0;
+		$minutes = $matches['minutes'][0] ?: 0;
+		$seconds = $matches['seconds'][0] ?: 0;
+		$fraction = $matches['fraction'][0] ?: 0;
+
 		return [$hours, $minutes, $seconds, $fraction];
 	}
 
