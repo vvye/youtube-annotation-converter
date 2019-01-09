@@ -135,7 +135,7 @@
 			}
 
 			// if no start or end time is set, that seems to mean it's text that appears
-            // when you hover over another annotation, so look for that one and use its timecodes instead
+			// when you hover over another annotation, so look for that one and use its timecodes instead
 			if ($startTime === 'never' || $endTime === 'never')
 			{
 				$id = $xpath->query('./segment/@spaceRelative', $element)[0]->nodeValue ?? null;
