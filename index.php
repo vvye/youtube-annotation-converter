@@ -125,9 +125,9 @@
 		foreach ($elements as $element)
 		{
 			$text = $xpath->query('./TEXT/text()', $element)[0]->nodeValue ?? null;
-			$startTime = $xpath->query('./segment/movingRegion/rectRegion[1]/@t', $element)[0]->nodeValue ?? null;
-			$endTime = $xpath->query('./segment/movingRegion/rectRegion[2]/@t', $element)[0]->nodeValue ?? null;
-			$yPos = $xpath->query('./segment/movingRegion/rectRegion[1]/@y', $element)[0]->nodeValue ?? null;
+			$startTime = $xpath->query('./segment/movingRegion/*[1]/@t', $element)[0]->nodeValue ?? null;
+			$endTime = $xpath->query('./segment/movingRegion/*[2]/@t', $element)[0]->nodeValue ?? null;
+			$yPos = $xpath->query('./segment/movingRegion/*[1]/@y', $element)[0]->nodeValue ?? null;
 
 			if ($text === null || $startTime === null || $endTime === null || $yPos === null)
 			{
@@ -148,9 +148,9 @@
 				{
 					continue;
 				}
-				$startTime = $xpath->query('./segment/movingRegion/rectRegion[1]/@t', $parentAnnotation)[0]->nodeValue ?? null;
-				$endTime = $xpath->query('./segment/movingRegion/rectRegion[2]/@t', $parentAnnotation)[0]->nodeValue ?? null;
-				$yPos = $xpath->query('./segment/movingRegion/rectRegion[1]/@y', $parentAnnotation)[0]->nodeValue ?? null;
+				$startTime = $xpath->query('./segment/movingRegion/*[1]/@t', $parentAnnotation)[0]->nodeValue ?? null;
+				$endTime = $xpath->query('./segment/movingRegion/*[2]/@t', $parentAnnotation)[0]->nodeValue ?? null;
+				$yPos = $xpath->query('./segment/movingRegion/*[1]/@y', $parentAnnotation)[0]->nodeValue ?? null;
 
 				if ($text === null || $startTime === null || $endTime === null || $yPos === null)
 				{
