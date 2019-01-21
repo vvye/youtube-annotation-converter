@@ -342,7 +342,7 @@
                            placeholder="https://www.youtube.com/watch?v=oHg5SJYRHA0" value="<?= $videoUrl ?>" />
                 </label>
                 <div class="options">
-                    <p class="prompt">When annotations overlap:</p>
+                    <p class="prompt">When annotations overlap in time:</p>
                     <label class="custom-radio">
                         <input type="radio" name="overlapping-annotations" value="merge"
 							<?= $overlappingAnnotationBehavior === 'merge' ? 'checked="checked"' : '' ?>>
