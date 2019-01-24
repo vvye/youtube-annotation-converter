@@ -335,6 +335,10 @@
                     <a href="https://github.com/vvye/youtube-annotation-converter">This tool on GitHub</a></p>
             </div>
 
+            <div class="error msg">This tool no longer works! YouTube removed all annotation data from videos on January
+                15, 2019.
+            </div>
+
             <form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">
                 <p class="prompt">Video ID or URL:</p>
                 <label>
