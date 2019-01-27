@@ -336,7 +336,9 @@
             </div>
 
             <div class="error msg">This tool no longer works! YouTube removed all annotation data from videos on January
-                15, 2019.
+                15, 2019.<br />
+                If you still have XML files containing annotations, you can convert them in bulk using <a
+                        href="xml-annotation-converter.zip">this program I threw together</a>.
             </div>
 
             <form method="post" action="<?= basename($_SERVER['SCRIPT_NAME']) ?>">

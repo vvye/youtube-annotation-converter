@@ -1,6 +1,10 @@
 <h1>YouTube annotation converter</h1>
 <p><a href="http://misc.eric-kaiser.net/youtube-annotation-converter">
 	http://misc.eric-kaiser.net/youtube-annotation-converter</a></p>
+<p>This tool no longer works! YouTube removed all annotation data from videos on January
+    15, 2019.<br />
+    If you still have XML files containing annotations, you can convert them in bulk using <a
+    href="xml-annotation-converter.zip">this program I threw together</a>.</p>
 <h2>What's this about?</h2>
 <p><a href="https://support.google.com/youtube/answer/7342737">On January 15, 2019, YouTube is getting rid
 		of annotations.</a></p>
